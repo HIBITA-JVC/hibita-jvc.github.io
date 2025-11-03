@@ -4,97 +4,284 @@
   <meta charset="UTF-8">
   <title>比々多ジュニアバレーボールクラブ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="比々多ジュニアバレーボールクラブの公式サイトです。大会情報・活動写真・入会案内などを掲載しています。">
+  <meta name="description" content="比々多ジュニアバレーボールクラブの公式サイトです。神奈川県伊勢原市を拠点に活動する小学生バレーボールチーム。見学・体験いつでもOK。">
   <style>
-    body {
-      font-family: system-ui, "Hiragino Sans", "Noto Sans JP", sans-serif;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 1rem;
-      background: #fafafa;
-      color: #333;
+    :root {
+      --accent: #0f73ff;
+      --accent-light: rgba(15,115,255,0.12);
+      --bg: #f1f3f7;
+      --card: #ffffff;
+      --text: #1f2933;
     }
-    header { text-align: center; margin-bottom: 2rem; }
-    header h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
-    nav { text-align: center; margin-bottom: 2rem; }
-    nav a { margin: 0 0.5rem; text-decoration: none; color: #0066cc; }
-    nav a:hover { text-decoration: underline; }
-    section { margin-bottom: 2.5rem; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      margin: 0;
+      background: radial-gradient(circle at top, #ffffff 0%, #eef3ff 40%, #f1f3f7 100%);
+      color: var(--text);
+    }
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(15,115,255,0.05);
+    }
+    .nav-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .7rem 1rem;
+    }
+    .logo {
+      font-weight: 700;
+      letter-spacing: .05em;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .logo-circle {
+      width: 28px; height: 28px;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #0f73ff 0%, #26b8ff 100%);
+      display: grid; place-items: center;
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 700;
+    }
+    nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #3b4a5a;
+      font-size: .9rem;
+    }
+    nav a:hover {
+      color: #0f73ff;
+    }
+    .hero {
+      max-width: 1080px;
+      margin: 1.5rem auto 1rem;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 1.5rem;
+      padding: 0 1rem;
+      align-items: center;
+    }
+    .hero-text h1 {
+      font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+      margin-bottom: .6rem;
+    }
+    .hero-text p {
+      margin-bottom: 1.1rem;
+      line-height: 1.6;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: #0f73ff;
+      color: #fff;
+      border: none;
+      padding: .6rem 1.1rem;
+      border-radius: .6rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+    }
+    .btn-secondary {
+      background: rgba(15,115,255,0.1);
+      color: #0f73ff;
+      border: none;
+      padding: .6rem 1.1rem;
+      border-radius: .6rem;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .hero-image {
+      background: radial-gradient(circle at top, #b0d6ff 0%, #0f73ff 40%, #022b56 100%);
+      border-radius: 1.3rem;
+      min-height: 220px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      text-align: center;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-badge {
+      position: absolute;
+      top: .8rem;
+      right: .8rem;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: .75rem;
+      padding: .4rem .7rem;
+      font-size: .7rem;
+    }
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1rem 3rem;
+      display: grid;
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(0,0,0,0.02);
+      border-radius: 1rem;
+      padding: 1.25rem 1.25rem 1rem;
+      box-shadow: 0 18px 55px rgba(15,115,255,0.04);
+    }
+    h2 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.25rem;
+    }
+    .flex-2col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1.5rem;
+    }
+    iframe.fb {
+      width: 100%;
+      max-width: 520px;
+      height: 600px;
+    }
     footer {
       text-align: center;
-      font-size: 0.8rem;
-      color: #777;
-      margin-top: 2rem;
-      border-top: 1px solid #ddd;
-      padding-top: 1rem;
+      padding: 1rem 0 2rem;
+      font-size: .8rem;
+      color: #6b7280;
     }
-    iframe {
-      width: 100%;
-      border: none;
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .flex-2col {
+        grid-template-columns: 1fr;
+      }
+      nav { display: none; }
+      .hero-image { min-height: 200px; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>比々多ジュニアバレーボールクラブ</h1>
-    <p>神奈川県伊勢原市を拠点に活動する小学生バレーボールチームです</p>
+  <!-- ヘッダー -->
+  <header class="site-header">
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-circle">Jr</div>
+        比々多ジュニアバレーボール
+      </div>
+      <nav>
+        <a href="#about">クラブ紹介</a>
+        <a href="#facebook">Facebook</a>
+        <a href="#album">写真アルバム</a>
+        <a href="#contact">入会案内</a>
+      </nav>
+    </div>
   </header>
 
-  <nav>
-    <a href="#about">クラブ紹介</a>
-    <a href="#facebook">Facebook</a>
-    <a href="#album">写真アルバム</a>
-    <a href="#contact">入会案内</a>
-  </nav>
-
-  <section id="about">
-    <h2>🏐 クラブ紹介</h2>
-    <p>
-      比々多ジュニアバレーボールクラブは、伊勢原市比々多地区を中心に活動している小学生チームです。<br>
-      バレーボールを通じてチームワークや思いやりを育み、楽しく全力でプレーすることを大切にしています。<br>
-      未経験者も大歓迎！見学や体験もいつでも受付中です。
-    </p>
+  <!-- ヒーロー -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>楽しく、強く。<br>比々多ジュニアバレーボールクラブ</h1>
+      <p>神奈川県伊勢原市を拠点に活動する小学生バレーボールチームです。大会出場・地域イベント・合同練習など年間を通して活動しています。</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">見学・体験のお申し込み</a>
+        <a href="#album" class="btn-secondary">最近の活動写真を見る</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <!-- ここに自前の画像を置きたいときは↓を有効化して、画像を /images/hero.jpg にアップしてください
+      <img src="images/hero.jpg" alt="比々多ジュニアバレーボールクラブの活動写真">
+      -->
+      <div>
+        <h2 style="margin-bottom:.3rem;">練習日：土・日中心</h2>
+        <p style="margin:0;font-size:.9rem;">比々多小学校 体育館ほか</p>
+      </div>
+      <div class="hero-badge">新メンバー募集中！</div>
+    </div>
   </section>
 
-  <section id="facebook">
-    <h2>📢 最新情報（Facebook）</h2>
+  <!-- メイン -->
+  <main>
+    <!-- クラブ紹介 -->
+    <section id="about" class="card">
+      <h2>🏐 クラブ紹介</h2>
+      <p>比々多ジュニアバレーボールクラブは、伊勢原市比々多地区を中心に活動している小学生チームです。バレーボールの楽しさを第一に、あいさつ・協力・挑戦を大切にしています。</p>
+      <p>未経験でも大丈夫です。体の使い方やボールの触り方から丁寧に指導します。大会に向けての強化期間と、基礎を楽しく身につける期間をバランスよく行っています。</p>
+      <ul>
+        <li>対象：小学生（男女）</li>
+        <li>活動場所：比々多小学校・市内体育館ほか</li>
+        <li>活動日：主に週末</li>
+        <li>地区外のお子さんも歓迎です</li>
+      </ul>
+    </section>
 
-    <!-- Facebook iframe埋め込み -->
-    <iframe
-      src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fhibitajvc%2F&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-      style="border:none;overflow:hidden;width:100%;max-width:500px;height:600px;"
-      scrolling="no"
-      frameborder="0"
-      allowfullscreen="true"
-      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-    </iframe>
-  </section>
+    <!-- Facebook & アルバム 2カラム -->
+    <section class="flex-2col">
+      <!-- Facebook -->
+      <div id="facebook" class="card">
+        <h2>📢 最新情報（Facebook）</h2>
+        <p style="margin-top:0.2rem;margin-bottom:1rem;font-size:.9rem;color:#6b7280;">
+          Facebookで大会結果・お知らせを掲載しています。
+        </p>
+        <iframe
+          class="fb"
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fhibitajvc%2F&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+          scrolling="no"
+          frameborder="0"
+          allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+        </iframe>
+      </div>
 
-  <section id="album">
-    <h2>📸 写真アルバム</h2>
-    <p>大会や練習風景の写真を共有しています。</p>
-    <iframe
-      src="https://publicalbum.org/blog/your-google-photos-embed-url"
-      style="height:600px;"
-      loading="lazy"
-      allowfullscreen>
-    </iframe>
-  </section>
+      <!-- 写真アルバム -->
+      <div id="album" class="card">
+        <h2>📸 写真アルバム</h2>
+        <p style="margin-top:0.2rem;margin-bottom:1rem;font-size:.9rem;color:#6b7280;">
+          練習・大会の写真をここにまとめていきます。保護者の方が追加しやすいように、Googleフォトの共有アルバムをおすすめします。
+        </p>
+        <iframe
+          src="https://publicalbum.org/blog/your-google-photos-embed-url"
+          style="height:600px;"
+          loading="lazy"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
 
-  <section id="contact">
-    <h2>✉️ 入会・お問い合わせ</h2>
-    <p>見学や入会希望の方は、以下のフォームまたはFacebookのメッセージからご連絡ください。</p>
-    <iframe
-      src="https://docs.google.com/forms/d/e/your-google-form-id/viewform?embedded=true"
-      style="height:700px;"
-      loading="lazy">
-      読み込んでいます…
-    </iframe>
-  </section>
+    <!-- 入会案内 -->
+    <section id="contact" class="card">
+      <h2>✉️ 入会・体験のお申し込み</h2>
+      <p>体験・見学は随時受付中です。下記フォームから送信いただくか、Facebookページのメッセージからお問い合わせください。</p>
+      <iframe
+        src="https://docs.google.com/forms/d/e/your-google-form-id/viewform?embedded=true"
+        style="height:700px;"
+        loading="lazy">
+        読み込んでいます…
+      </iframe>
+    </section>
+  </main>
 
   <footer>
-    &copy; 2025 比々多ジュニアバレーボールクラブ All Rights Reserved.<br>
-    <small>本サイトは GitHub Pages により無料で運営されています。</small>
+    &copy; 2025 比々多ジュニアバレーボールクラブ / hibita-jvc.github.io
   </footer>
 </body>
 </html>
