@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="ja">
 <head>
+  <!-- モダンで読みやすい見出し用フォント -->
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <title>比々多ジュニアバレーボールクラブ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -332,7 +334,40 @@
       .flex-2col { grid-template-columns: 1fr; }
       .hero-shell { margin-top: 1rem; }
     }
+/* 見出しのフォントとアニメの見た目 */
+.hero-title{
+  font-family: "Zen Kaku Gothic New", "Noto Sans JP", system-ui, sans-serif;
+  letter-spacing: .03em;
+  line-height: 1.12;
+}
+.hero-title .sub{
+  display:block;
+  margin-top:.35rem;
+  font-weight:700;
+  font-size: clamp(1.3rem, 2.6vw, 2rem);
+  color:#0d336b;
+}
 
+/* 1文字ずつのアニメ */
+.split .char{
+  display:inline-block;
+  opacity:0;
+  transform: translateY(12px);
+  filter: blur(3px);
+  animation: charFloat .7s cubic-bezier(.2,.65,.3,1) forwards;
+}
+@keyframes charFloat{
+  to{
+    opacity:1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* 動きが苦手な人向け（端末設定で軽減にしている場合） */
+@media (prefers-reduced-motion: reduce){
+  .split .char{animation:none;opacity:1;transform:none;filter:none}
+}
   </style>
 </head>
 <body>
@@ -370,7 +405,10 @@
 
     <section class="hero">
       <div class="hero-left reveal">
-        <h1>「心で繋げ」<br>比々多ジュニアバレーボールクラブ</h1>
+        <h1 class="hero-title">
+  <span class="split" data-split>「心で繋げ」</span>
+  <span class="split sub" data-split>比々多ジュニアバレーボールクラブ</span>
+</h1>
         <p>神奈川県伊勢原市を拠点に活動する小学生バレーボールチームです。大会出場・練習試合・イベントなど年間を通して活動しています。</p>
         <div class="hero-buttons">
           <a href="#contact" class="btn-primary">見学・体験のお申し込み</a>
@@ -470,5 +508,19 @@
 
     reveals.forEach(el => io.observe(el));
   </script>
+  <script>
+  // 文字を1文字ずつ<span class="char">で包んで遅延アニメ付与
+  document.querySelectorAll('[data-split]').forEach(el=>{
+    const txt = el.textContent;
+    el.textContent = '';
+    [...txt].forEach((ch,i)=>{
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = ch === ' ' ? ' ' : ch; // 半角スペース保持
+      span.style.animationDelay = (i * 0.045) + 's';   // ★1文字ごとの遅延
+      el.appendChild(span);
+    });
+  });
+</script>
 </body>
 </html>
