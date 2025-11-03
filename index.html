@@ -10,12 +10,17 @@
   <style>
     :root{--blue:#0f73ff;--blue2:#32a5ff;--blue-dark:#073f8e;--bg:#ecf4ff;--card:rgba(255,255,255,0.92);--text:#0f172a;--shadow-lg:0 14px 45px rgba(6,81,193,0.08)}
     *{box-sizing:border-box;margin:0;padding:0}
+
+    /* ←← パッチ1：bodyのoverflow-xは外す（描画はclipで） */
+    html{ overflow-x: clip; }
+
     body{
       font-family:"Noto Sans JP","Hiragino Sans","Segoe UI",system-ui,sans-serif;
       color:var(--text);
       background:radial-gradient(circle at 20% 40%, #f8fbff 0%, #e9f2ff 60%, #ffffff 100%);
-      background-attachment:fixed;line-height:1.7;overflow-x:hidden;
+      background-attachment:fixed;line-height:1.7;
     }
+
     body::before{content:"";position:fixed;inset:0;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2O0dOjYfwAJ3wM4p5rx/gAAAABJRU5ErkJggg==');opacity:0.3;mix-blend-mode:overlay;pointer-events:none;z-index:-1}
 
     /* Header */
@@ -52,9 +57,11 @@
     .practice-card{background:rgba(255,255,255,0.9);border-radius:.9rem;padding:.7rem 1rem;box-shadow:var(--shadow-lg);border:1px solid rgba(15,115,255,0.1)}
     .practice-title{font-weight:700;color:var(--blue-dark)}
     .practice-sub{font-size:.8rem;color:#627082}
-/* parallaxでレイヤー化された要素のテキスト欠け対策 */
-.hero { overflow: visible; }
-.hero-left, .hero-right { contain: layout paint; } /* 描画影響を局所化 */
+
+    /* parallaxでレイヤー化された要素のテキスト欠け対策 */
+    .hero { overflow: visible; }
+    .hero-left, .hero-right { contain: layout paint; }
+
     /* Main */
     main{max-width:1100px;margin:0 auto;padding:0 1rem 3rem;display:grid;gap:1.5rem}
     .card{background:var(--card);border-radius:1rem;padding:1.5rem;box-shadow:0 10px 25px rgba(15,115,255,0.06);border:1px solid rgba(255,255,255,0.4);transition:transform .4s ease}
@@ -104,60 +111,31 @@
     .slide.active{opacity:1}
     @media (hover:hover){.slideshow-container:hover img{filter:brightness(0.95)}}
     img{max-width:100%;height:auto}
- /* --- 横ズレ防止のホットフィックス --- */
-html, body { overflow-x: hidden; }
 
-/* スクロールバー出現で幅が変わる揺れを防止（対応ブラウザ） */
-@supports (scrollbar-gutter: stable) {
-  html { scrollbar-gutter: stable both-edges; }
-}
+    /* --- ここから “右欠け対策” の調整 --- */
 
-/* 背景・輝きの拡大アニメでサブピクセルはみ出し対策 */
-.hero-shell,
-.hero-shell::before,
-.hero-shell::after,
-.hero-shell .shine {
-  transform-origin: center center;
-  will-change: transform;
-  contain: paint;                 /* 描画外への影響を遮断 */
-}
+    /* 既存の横ブレ・パララックス調整 */
+    @supports (scrollbar-gutter: stable) { html { scrollbar-gutter: stable both-edges; } }
+    .hero-shell,.hero-shell::before,.hero-shell::after,.hero-shell .shine{transform-origin:center center;will-change:transform}
 
-/* iOSなどで横ブレが出る場合に視差を弱める */
-@media (max-width: 950px), (prefers-reduced-motion: reduce) {
-  .hero-shell { transform: none !important; }
-}
+    /* ←← パッチ2：主要ブロックに1pxの保険 */
+    .hero, .card, .spirit, .flex-2col { padding-right: 1px; }
 
-/* 画像・iframeのはみ出し保険 */
-img, iframe { display: block; max-width: 100%; }
-/* === 右端が欠ける対策（クリップを解除） === */
+    /* ←← パッチ3：モバイルではカードの3D変形を無効化 */
+    @media (hover:none){
+      .card:hover{ transform:none !important; }
+    }
 
-/* ヒーローはシャドウや反射が外側に出るので隠さない */
-.hero-shell { overflow: visible !important; }
+    /* 画像・iframeのはみ出し保険 */
+    img, iframe { display:block; max-width:100%; }
 
-/* カードの外側に出るシャドウ/子要素も隠さない */
-.card { overflow: visible !important; }
-
-/* クリップを強める要因だった contain: paint を解除 */
-.hero-shell,
-.hero-shell::before,
-.hero-shell::after,
-.hero-shell .shine {
-  contain: initial !important;   /* or 'unset' */
-}
-
-/* 画像やFacebook iframeが1pxだけ溢れても横スクロールは出さず、内容は見切らない */
-img, iframe { max-width: 100%; display: block; }
-
-/* iOSのセーフエリアで右端が窮屈になる場合の保険（効かない環境では無害） */
-@supports (padding: max(0px)) {
-  .nav-container,
-  .hero-shell,
-  main,
-  footer {
-    padding-left: max(1rem, env(safe-area-inset-left));
-    padding-right: max(1rem, env(safe-area-inset-right));
-  }
-}
+    /* iOSのセーフエリア保険 */
+    @supports (padding: max(0px)) {
+      .nav-container, .hero-shell, main, footer {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+      }
+    }
   </style>
 </head>
 
@@ -243,7 +221,6 @@ img, iframe { max-width: 100%; display: block; }
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
       </div>
 
-      <!-- 活動の様子 -->
       <div id="activity" class="card reveal">
         <h2 class="section-title">🎞 活動の様子</h2>
         <p style="margin-bottom:1rem;color:#6b7280;font-size:.95rem;">
@@ -304,31 +281,30 @@ img, iframe { max-width: 100%; display: block; }
         el.appendChild(span);
       });
     });
-  // parallax（サブピクセルの横揺れ対策）
-  (() => {
-    const shell = document.querySelector('.hero-shell');
-    const heroImg = document.querySelector('.hero-image');
-    if (!shell || !heroImg) return;
 
-    // モバイルや低性能環境では無効化
-    const disable = window.matchMedia('(max-width: 950px)').matches ||
-                    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (disable) return;
+    // parallax（サブピクセル対策＋モバイル無効）
+    (() => {
+      const shell = document.querySelector('.hero-shell');
+      const heroImg = document.querySelector('.hero-image');
+      if (!shell || !heroImg) return;
+      const disable = window.matchMedia('(max-width: 950px)').matches ||
+                      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (disable) return;
+      let ticking = false;
+      const onScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const y = Math.round((window.scrollY || 0));
+          shell.style.transform = `translate3d(0, ${Math.round(y * 0.06)}px, 0)`;
+          heroImg.style.transform = `translate3d(0, ${Math.round(8 + y * 0.09)}px, 0)`;
+          ticking = false;
+        });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
 
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const y = Math.round((window.scrollY || 0)); // ← 小数を丸める
-        shell.style.transform = `translate3d(0, ${Math.round(y * 0.06)}px, 0)`;
-        heroImg.style.transform = `translate3d(0, ${Math.round(8 + y * 0.09)}px, 0)`;
-        ticking = false;
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
     // hamburger
     (()=>{const menuButton=document.getElementById('menuButton');const mobileNav=document.getElementById('mobileNav');const navOverlay=document.getElementById('navOverlay');
       if(!menuButton||!mobileNav||!navOverlay)return;
