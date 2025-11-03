@@ -4,21 +4,120 @@
   <meta charset="UTF-8">
   <title>比々多ジュニアバレーボールクラブ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="比々多ジュニアバレーボールクラブの公式サイトです。大会情報・活動写真・入会案内などを掲載しています。">
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 960px; margin: 0 auto; padding: 1rem; }
-    header { text-align: center; margin-bottom: 2rem; }
+    body {
+      font-family: system-ui, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem;
+      background: #fafafa;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    nav a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #0066cc;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      margin-bottom: 2.5rem;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 2rem;
+      border-top: 1px solid #ddd;
+      padding-top: 1rem;
+    }
+    iframe {
+      width: 100%;
+      border: none;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>比々多ジュニアバレーボールクラブ</h1>
-    <p>練習日・大会情報・SNS連携</p>
+    <p>神奈川県伊勢原市を拠点に活動する小学生バレーボールチームです</p>
   </header>
 
-  <p>こんにちは！比々多ジュニアバレーボールクラブのホームページへようこそ！</p>
+  <nav>
+    <a href="#about">クラブ紹介</a>
+    <a href="#facebook">Facebook</a>
+    <a href="#album">写真アルバム</a>
+    <a href="#contact">入会案内</a>
+  </nav>
 
-  <footer style="margin-top:2rem; font-size:0.8rem; text-align:center;">
-    &copy; 比々多ジュニアバレーボールクラブ
+  <section id="about">
+    <h2>🏐 クラブ紹介</h2>
+    <p>
+      比々多ジュニアバレーボールクラブは、伊勢原市比々多地区を中心に活動している小学生チームです。<br>
+      バレーボールを通じてチームワークや思いやりを育み、楽しく全力でプレーすることを大切にしています。<br>
+      未経験者も大歓迎！見学や体験もいつでも受付中です。
+    </p>
+  </section>
+
+  <section id="facebook">
+    <h2>📢 最新情報（Facebook）</h2>
+
+    <!-- Facebook Page Plugin -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v21.0"></script>
+
+    <div class="fb-page"
+         data-href="https://www.facebook.com/hibitajvc/"
+         data-tabs="timeline"
+         data-width="100%"
+         data-height=""
+         data-small-header="false"
+         data-adapt-container-width="true"
+         data-hide-cover="false"
+         data-show-facepile="true">
+    </div>
+  </section>
+
+  <section id="album">
+    <h2>📸 写真アルバム</h2>
+    <p>大会や練習風景の写真を共有しています。</p>
+    <iframe
+      src="https://publicalbum.org/blog/your-google-photos-embed-url"
+      style="height:600px;"
+      loading="lazy"
+      allowfullscreen>
+    </iframe>
+  </section>
+
+  <section id="contact">
+    <h2>✉️ 入会・お問い合わせ</h2>
+    <p>見学や入会希望の方は、以下のフォームまたはFacebookのメッセージからご連絡ください。</p>
+    <iframe
+      src="https://docs.google.com/forms/d/e/your-google-form-id/viewform?embedded=true"
+      style="height:700px;"
+      loading="lazy">
+      読み込んでいます…
+    </iframe>
+  </section>
+
+  <footer>
+    &copy; 2025 比々多ジュニアバレーボールクラブ All Rights Reserved.<br>
+    <small>本サイトは GitHub Pages により無料で運営されています。</small>
   </footer>
 </body>
 </html>
