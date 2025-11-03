@@ -30,6 +30,11 @@
     }
     iframe { width: 100%; border: none; }
   </style>
+
+  <!-- Facebook SDK 読み込み -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v21.0"></script>
 </head>
 <body>
   <header>
@@ -55,11 +60,6 @@
 
   <section id="facebook">
     <h2>📢 最新情報（Facebook）</h2>
-
-    <!-- Facebook Page Plugin 読み込み -->
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v21.0"></script>
 
     <!-- Facebookページを表示する枠 -->
     <div class="fb-page"
