@@ -102,6 +102,31 @@
     .slide.active{opacity:1}
     @media (hover:hover){.slideshow-container:hover img{filter:brightness(0.95)}}
     img{max-width:100%;height:auto}
+ /* --- 横ズレ防止のホットフィックス --- */
+html, body { overflow-x: hidden; }
+
+/* スクロールバー出現で幅が変わる揺れを防止（対応ブラウザ） */
+@supports (scrollbar-gutter: stable) {
+  html { scrollbar-gutter: stable both-edges; }
+}
+
+/* 背景・輝きの拡大アニメでサブピクセルはみ出し対策 */
+.hero-shell,
+.hero-shell::before,
+.hero-shell::after,
+.hero-shell .shine {
+  transform-origin: center center;
+  will-change: transform;
+  contain: paint;                 /* 描画外への影響を遮断 */
+}
+
+/* iOSなどで横ブレが出る場合に視差を弱める */
+@media (max-width: 950px), (prefers-reduced-motion: reduce) {
+  .hero-shell { transform: none !important; }
+}
+
+/* 画像・iframeのはみ出し保険 */
+img, iframe { display: block; max-width: 100%; }
   </style>
 </head>
 
@@ -249,14 +274,32 @@
       });
     });
 
-    // parallax
-    (()=>{const shell=document.querySelector('.hero-shell');const heroImg=document.querySelector('.hero-image');
-      if(!shell||!heroImg)return;let ticking=false;
-      const onScroll=()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{
-        const y=window.scrollY||0;shell.style.transform=`translateY(${y*0.06}px)`;heroImg.style.transform=`translateY(${8+y*0.09}px)`;ticking=false;});};
-      window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-    })();
+    <script>
+  // parallax（サブピクセルの横揺れ対策）
+  (() => {
+    const shell = document.querySelector('.hero-shell');
+    const heroImg = document.querySelector('.hero-image');
+    if (!shell || !heroImg) return;
 
+    // モバイルや低性能環境では無効化
+    const disable = window.matchMedia('(max-width: 950px)').matches ||
+                    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (disable) return;
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = Math.round((window.scrollY || 0)); // ← 小数を丸める
+        shell.style.transform = `translate3d(0, ${Math.round(y * 0.06)}px, 0)`;
+        heroImg.style.transform = `translate3d(0, ${Math.round(8 + y * 0.09)}px, 0)`;
+        ticking = false;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
     // hamburger
     (()=>{const menuButton=document.getElementById('menuButton');const mobileNav=document.getElementById('mobileNav');const navOverlay=document.getElementById('navOverlay');
       if(!menuButton||!mobileNav||!navOverlay)return;
