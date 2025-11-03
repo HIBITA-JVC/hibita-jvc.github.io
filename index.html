@@ -52,7 +52,9 @@
     .practice-card{background:rgba(255,255,255,0.9);border-radius:.9rem;padding:.7rem 1rem;box-shadow:var(--shadow-lg);border:1px solid rgba(15,115,255,0.1)}
     .practice-title{font-weight:700;color:var(--blue-dark)}
     .practice-sub{font-size:.8rem;color:#627082}
-
+/* parallaxでレイヤー化された要素のテキスト欠け対策 */
+.hero { overflow: visible; }
+.hero-left, .hero-right { contain: layout paint; } /* 描画影響を局所化 */
     /* Main */
     main{max-width:1100px;margin:0 auto;padding:0 1rem 3rem;display:grid;gap:1.5rem}
     .card{background:var(--card);border-radius:1rem;padding:1.5rem;box-shadow:0 10px 25px rgba(15,115,255,0.06);border:1px solid rgba(255,255,255,0.4);transition:transform .4s ease}
