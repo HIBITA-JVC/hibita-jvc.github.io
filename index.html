@@ -24,7 +24,7 @@
       overflow-x: hidden;
     }
 
-    /* 🌊 背景の青い波アニメーション */
+    /* ゆるい青い波の背景 */
     body::before {
       content: "";
       position: fixed;
@@ -42,17 +42,16 @@
       100% { transform: translate(-10%, -5%) scale(1.1); }
     }
 
-    /* ==== ヘッダー ==== */
+    /* ヘッダー */
     header.site-header {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(15,115,255,0.1);
       box-shadow: 0 2px 6px rgba(15,115,255,0.05);
     }
-
     .nav-container {
       max-width: 1080px;
       margin: 0 auto;
@@ -61,17 +60,13 @@
       justify-content: space-between;
       padding: .7rem 1rem;
     }
-
     .logo {
       font-weight: 700;
-      font-size: 1rem;
       display: flex;
       align-items: center;
       gap: .5rem;
-      letter-spacing: .03em;
       color: var(--blue-dark);
     }
-
     .logo-circle {
       width: 28px; height: 28px;
       border-radius: 50%;
@@ -80,22 +75,15 @@
       color: #fff; font-size: .65rem; font-weight: 700;
       box-shadow: 0 0 8px rgba(15,115,255,0.3);
     }
-
-    nav {
-      display: flex;
-      gap: 1rem;
-    }
-
+    nav { display: flex; gap: 1rem; }
     nav a {
-      color: var(--text);
       text-decoration: none;
+      color: var(--text);
       font-weight: 500;
-      transition: color 0.2s;
     }
-
     nav a:hover { color: var(--blue); }
 
-    /* ==== ハンバーガー ==== */
+    /* ハンバーガー */
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -127,29 +115,24 @@
     .mobile-nav {
       display: none;
       flex-direction: column;
-      align-items: center;
       background: #fff;
-      border-top: 1px solid rgba(0,0,0,0.05);
-      overflow: hidden;
       max-height: 0;
-      transition: max-height 0.4s ease, padding 0.3s ease;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
     }
     .mobile-nav.show {
       display: flex;
-      max-height: 400px;
-      padding: 1rem 0;
+      max-height: 300px;
+      padding-bottom: .5rem;
     }
     .mobile-nav a {
       text-decoration: none;
       color: var(--blue-dark);
-      font-weight: 600;
-      padding: .6rem 0;
-      width: 100%;
       text-align: center;
+      padding: .5rem 0;
     }
-    .mobile-nav a:hover { background: var(--blue-light); }
 
-    /* ==== ヒーロー ==== */
+    /* ヒーロー */
     .hero {
       max-width: 1080px;
       margin: 1.5rem auto 1rem;
@@ -164,23 +147,16 @@
       margin-bottom: .6rem;
       color: var(--blue-dark);
     }
-    .hero-text p {
-      margin-bottom: 1.1rem;
-      line-height: 1.6;
-    }
+    .hero-text p { margin-bottom: 1.1rem; }
     .hero-buttons { display: flex; gap: .75rem; flex-wrap: wrap; }
-
     .btn-primary {
       background: var(--blue);
       color: #fff;
-      border: none;
       padding: .6rem 1.1rem;
       border-radius: .6rem;
-      font-weight: 600;
       text-decoration: none;
+      font-weight: 600;
     }
-    .btn-primary:hover { background: var(--blue-dark); }
-
     .btn-secondary {
       background: rgba(15,115,255,0.1);
       color: var(--blue);
@@ -190,48 +166,45 @@
       font-weight: 600;
     }
 
+    /* 画像＋その下に日程カード */
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
     .hero-image {
-      background: radial-gradient(circle at top, #b0d6ff 0%, #0f73ff 40%, #022b56 100%);
       border-radius: 1.3rem;
-      min-height: 220px;
-      position: relative;
       overflow: hidden;
-      display: grid;
-      place-items: center;
-      text-align: center;
+      background: #0f73ff;
+      min-height: 220px;
     }
     .hero-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.4;
-      position: absolute;
-      top: 0; left: 0;
+      display: block;
     }
-    .hero-image h2 {
-      color: #fff;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    .practice-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(15,115,255,0.1);
+      border-radius: 1rem;
+      padding: .8rem 1rem .9rem;
+      box-shadow: 0 6px 15px rgba(15,115,255,0.07);
+    }
+    .practice-card-title {
       font-weight: 700;
-      font-size: 1.1rem;
+      color: var(--blue-dark);
+      margin-bottom: .25rem;
+      display: flex;
+      gap: .4rem;
+      align-items: center;
     }
-    .hero-image p {
-      color: #f0f8ff;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.5);
-    }
-    .hero-badge {
-      position: absolute;
-      top: .8rem;
-      right: .8rem;
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,.4);
-      border-radius: .75rem;
-      padding: .4rem .7rem;
-      font-size: .7rem;
-      color: #fff;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    .practice-card p {
+      margin: 0;
+      font-size: .9rem;
     }
 
-    /* ==== メイン ==== */
+    /* メイン */
     main {
       max-width: 1080px;
       margin: 0 auto;
@@ -310,13 +283,16 @@
         <a href="#album" class="btn-secondary">最近の活動写真を見る</a>
       </div>
     </div>
-    <div class="hero-image">
-      <img src="無題502_20250923182937.png" alt="比々多ジュニアバレーボールクラブの活動写真">
-      <div>
-        <h2>練習日：火・木・土・日(祝)</h2>
-        <p>比々多小学校・大山小学校 体育館ほか</p>
+    <div class="hero-right">
+      <div class="hero-image">
+        <!-- あなたの画像 -->
+        <img src="無題502_20250923182937.png" alt="比々多ジュニアバレーボールクラブの活動写真">
       </div>
-      <div class="hero-badge">新メンバー募集中！</div>
+      <div class="practice-card">
+        <div class="practice-card-title">📅 練習日</div>
+        <p>火・木・土・日（祝）</p>
+        <p style="margin-top:.25rem;font-size:.85rem;color:#4b5563;">場所：比々多小学校・大山小学校 体育館ほか</p>
+      </div>
     </div>
   </section>
 
