@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="比々多ジュニアバレーボールクラブの公式サイト。神奈川県伊勢原市を拠点に活動する小学生バレーボールチームです。見学・体験いつでもOK！">
 
-  <!-- モダンな見出しフォント -->
+  <!-- モダンな日本語見出しフォント -->
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -15,36 +15,33 @@
       --blue2: #32a5ff;
       --blue-dark: #073f8e;
       --bg: #ecf4ff;
-      --card: rgba(255,255,255,0.9);
+      --card: rgba(255,255,255,0.92);
       --text: #0f172a;
       --shadow-lg: 0 14px 45px rgba(6, 81, 193, 0.08);
     }
     *{box-sizing:border-box;margin:0;padding:0}
+
+    /* ==== 背景（淡青グラデ＋ノイズ） ==== */
     body{
       font-family:"Noto Sans JP","Hiragino Sans","Segoe UI",system-ui,sans-serif;
       color:var(--text);
-      background:linear-gradient(to bottom right,#f4f8ff,#e6f2ff,#ffffff);
+      background:radial-gradient(circle at 20% 40%, #f8fbff 0%, #e9f2ff 60%, #ffffff 100%);
       background-attachment:fixed;
       background-size:110%;
       line-height:1.7;
       overflow-x:hidden;
     }
-
-    /* 光のラインが動く背景 */
-    .hero-shell::after{
+    body::before{
       content:"";
-      position:absolute;
-      top:0;left:0;width:100%;height:100%;
-      background:repeating-linear-gradient(110deg,rgba(255,255,255,0.1) 0,rgba(255,255,255,0.1) 2px,transparent 2px,transparent 8px);
-      animation:moveLight 8s linear infinite;
+      position:fixed;inset:0;
+      background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2O0dOjYfwAJ3wM4p5rx/gAAAABJRU5ErkJggg==');
+      opacity:0.3;
       mix-blend-mode:overlay;
       pointer-events:none;
-    }
-    @keyframes moveLight{
-      from{background-position:0 0}
-      to{background-position:400px 0}
+      z-index:-1;
     }
 
+    /* ==== ヘッダー ==== */
     header.site-header{
       position:sticky;top:0;z-index:100;
       background:rgba(255,255,255,0.9);
@@ -76,36 +73,88 @@
     }
     nav a:hover::after{width:100%}
 
-    .menu-toggle{display:none}
-    .mobile-nav{display:none}
-
-    /* ヒーロー */
+    /* ==== ヒーローセクション ==== */
     .hero-shell{
-      position:relative;max-width:1100px;margin:1.5rem auto;padding:0 1rem;
+      position:relative;
+      overflow:hidden;
+      max-width:1100px;
+      margin:1.5rem auto;
+      padding:0 1rem;
+      border-radius:1.2rem;
     }
+
+    /* 呼吸する青光＋反射光（A+B） */
+    .hero-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(15,115,255,0.18), transparent 70%);
+      animation: breathe 9s ease-in-out infinite alternate;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+    @keyframes breathe {
+      from { transform: scale(1); opacity: 0.7; }
+      to { transform: scale(1.1); opacity: 1; }
+    }
+    .hero-shell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg,
+        rgba(255, 255, 255, 0.25),
+        rgba(255, 255, 255, 0.05) 30%,
+        rgba(255, 255, 255, 0) 60%);
+      background-size: 200% 200%;
+      animation: shimmerMove 12s ease-in-out infinite;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+    @keyframes shimmerMove {
+      0% { background-position: 100% 0; }
+      50% { background-position: 0 100%; }
+      100% { background-position: 100% 0; }
+    }
+
     .hero{
-      display:grid;grid-template-columns:1.1fr .9fr;gap:1.5rem;align-items:center;
+      display:grid;grid-template-columns:1.1fr .9fr;
+      gap:1.5rem;align-items:center;
     }
     .hero-title{
       font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
       letter-spacing:.03em;line-height:1.12;
     }
-    .hero-title .sub{display:block;margin-top:.35rem;font-weight:700;font-size:clamp(1.3rem,2.6vw,2rem);color:#0d336b}
+    .hero-title .sub{
+      display:block;margin-top:.35rem;font-weight:700;
+      font-size:clamp(1.3rem,2.6vw,2rem);color:#0d336b;
+    }
     .split .char{display:inline-block;opacity:0;transform:translateY(12px);filter:blur(3px);animation:charFloat .7s cubic-bezier(.2,.65,.3,1) forwards}
     @keyframes charFloat{to{opacity:1;transform:translateY(0);filter:blur(0)}}
+
     .hero-left p{margin-top:1rem;color:#47617c}
     .hero-buttons{margin-top:1.2rem;display:flex;gap:.7rem;flex-wrap:wrap}
-    .btn-primary{background:linear-gradient(135deg,var(--blue),#40b5ff);color:#fff;text-decoration:none;padding:.6rem 1.2rem;border-radius:.8rem;font-weight:600;box-shadow:0 8px 20px rgba(15,115,255,0.3)}
-    .btn-secondary{background:rgba(13,68,150,0.08);color:var(--blue-dark);padding:.6rem 1.2rem;border-radius:.8rem;text-decoration:none;font-weight:600;border:1px solid rgba(13,68,150,0.15)}
+    .btn-primary{
+      background:linear-gradient(135deg,var(--blue),#40b5ff);
+      color:#fff;text-decoration:none;padding:.6rem 1.2rem;border-radius:.8rem;
+      font-weight:600;box-shadow:0 8px 20px rgba(15,115,255,0.3);
+    }
+    .btn-secondary{
+      background:rgba(13,68,150,0.08);color:var(--blue-dark);
+      padding:.6rem 1.2rem;border-radius:.8rem;text-decoration:none;
+      font-weight:600;border:1px solid rgba(13,68,150,0.15)
+    }
+
     .hero-right{display:flex;flex-direction:column;gap:.8rem}
-    .hero-image{border-radius:1.1rem;overflow:hidden;box-shadow:0 18px 55px rgba(15,115,255,0.08);animation:imgFloat 6s ease-in-out infinite alternate}
+    .hero-image{border-radius:1.1rem;overflow:hidden;
+      box-shadow:0 18px 55px rgba(15,115,255,0.08);
+      animation:imgFloat 6s ease-in-out infinite alternate}
     @keyframes imgFloat{to{transform:translateY(5px)}}
     .hero-image img{width:100%;height:100%;object-fit:cover}
     .practice-card{background:rgba(255,255,255,0.9);border-radius:.9rem;padding:.7rem 1rem;box-shadow:var(--shadow-lg);border:1px solid rgba(15,115,255,0.1)}
     .practice-title{font-weight:700;color:var(--blue-dark)}
     .practice-sub{font-size:.8rem;color:#627082}
 
-    /* カード共通 */
+    /* ==== カード / メイン ==== */
     main{max-width:1100px;margin:0 auto;padding:0 1rem 3rem;display:grid;gap:1.5rem}
     .card{
       background:var(--card);border-radius:1rem;padding:1.5rem;
@@ -113,7 +162,7 @@
       border:1px solid rgba(255,255,255,0.4);
       transition:transform .4s ease;
     }
-    .card:hover{transform:rotateX(2deg) rotateY(-2deg)}
+    .card:hover{transform:rotateX(1deg) rotateY(-1deg)}
     h2.section-title{
       position:relative;color:var(--blue-dark);margin-bottom:.6rem;padding-bottom:.3rem;
     }
@@ -125,18 +174,20 @@
     .flex-2col{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
     iframe.fb{width:100%;height:600px;border:none;border-radius:.6rem}
 
-    /* チームスピリット */
+    /* ==== チームスピリット ==== */
     .spirit{text-align:center;padding:3rem 1rem;color:#073f8e;font-weight:600;font-style:italic;line-height:1.8}
     .spirit p{font-size:1.1rem}
 
-    /* 波紋アニメーション */
+    /* ==== 波紋アニメーション ==== */
     .wave{position:absolute;bottom:0;left:0;width:100%;height:120px;z-index:-1}
 
+    /* ==== フッター ==== */
     footer{
       background:radial-gradient(circle at top,#0e3c77 0%,#071f3d 70%);
       color:#fff;text-align:center;padding:2rem 1rem 2.5rem;margin-top:2rem;font-size:.85rem
     }
 
+    /* ==== アニメーション共通 ==== */
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}
     .reveal.show{opacity:1;transform:none}
 
@@ -207,10 +258,9 @@
       </ul>
     </section>
 
-    <!-- チームスピリット -->
     <section class="spirit reveal">
       <blockquote>
-        <p>心で繋げ。<br></p>
+        <p>心で繋ぐ、声で導く。<br>小さな一球に、無限の物語がある。</p>
       </blockquote>
     </section>
 
