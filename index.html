@@ -22,7 +22,45 @@
     }
 
     body::before{content:"";position:fixed;inset:0;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2O0dOjYfwAJ3wM4p5rx/gAAAABJRU5ErkJggg==');opacity:0.3;mix-blend-mode:overlay;pointer-events:none;z-index:-1}
-
+body::after {
+  content:"";
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:200%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#32a5ff,transparent);
+  animation:flowline 5s linear infinite;
+  z-index:999; /* ← フッターの下に埋もれないように追加 */
+}
+@keyframes flowline {
+  to { transform: translateX(-50%); }
+}
+    #toTop {
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:46px;
+  height:46px;
+  border:none;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#32a5ff,#0f73ff);
+  box-shadow:0 0 20px rgba(15,115,255,0.4);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  transition:transform .3s, opacity .3s;
+  z-index:999;
+  opacity:0;
+  pointer-events:none;
+}
+#toTop.show {
+  opacity:1;
+  pointer-events:auto;
+}
+#toTop:hover {
+  transform:scale(1.15) rotate(8deg);
+}
     /* Header */
     header.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.9);backdrop-filter:blur(15px);border-bottom:1px solid rgba(15,115,255,0.08)}
     .nav-container{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem}
@@ -354,7 +392,7 @@ iframe, img { max-width: 100%; }  /* 念のための保険 */
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l7 7-1.4 1.4L13 9.8V19h-2V9.8L6.4 13.4 5 12z"/></svg>
 </button>
   <footer>&copy; 2025 比々多ジュニアバレーボールクラブ / hibita-jvc.github.io</footer>
-
+  <button id="toTop" title="トップへ戻る">↑</button>
   <script>
     // reveal
     const reveals=document.querySelectorAll('.reveal');
