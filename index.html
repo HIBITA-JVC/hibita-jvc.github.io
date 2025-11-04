@@ -136,6 +136,14 @@
         padding-right: max(1rem, env(safe-area-inset-right));
       }
     }
+    /* 2カラムが子要素の最小幅で突っ張らないようにする */
+.flex-2col {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr); /* ← 1frでも縮められる */
+  gap: 1.5rem;
+}
+.card { min-width: 0; }           /* ← Grid内でのはみ出しを許可しない */
+iframe, img { max-width: 100%; }  /* 念のための保険 */
   </style>
 </head>
 
@@ -197,9 +205,9 @@
     <section id="about" class="card reveal">
       <h2 class="section-title">🏐 クラブ紹介</h2>
       <p>比々多ジュニアバレーボールクラブは、伊勢原市比々多地区を中心に活動している小学生チームです。</p>
-      <p>未経験でも大丈夫です。</p>
+      <p>未経験でももちろん大丈夫です。</p>
       <ul>
-        <li>対象：小学生</li>
+        <li>対象：小学生(男女問わず)</li>
         <li>活動場所：比々多小学校・大山小学校・市内体育館ほか</li>
         <li>活動日：火・木・土・日</li>
         <li>地区外の小学生もたくさん在籍しています！</li>
@@ -216,10 +224,17 @@
       <div id="facebook" class="card reveal">
         <h2 class="section-title">📢 最新情報（Facebook）</h2>
         <iframe class="fb"
-          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fhibitajvc%2F&tabs=timeline&width=500&height=600"
-          scrolling="no" frameborder="0" allowfullscreen="true"
-          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-      </div>
+  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fhibitajvc%2F
+       &tabs=timeline
+       &width=340
+       &height=600
+       &small_header=false
+       &adapt_container_width=true
+       &hide_cover=false
+       &show_facepile=true"
+  style="width:100%; height:600px; border:none; border-radius:.6rem; overflow:hidden;"
+  scrolling="no" frameborder="0" allowfullscreen="true"
+  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 
       <div id="activity" class="card reveal">
         <h2 class="section-title">🎞 活動の様子</h2>
