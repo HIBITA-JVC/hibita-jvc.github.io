@@ -250,8 +250,10 @@ body{ opacity:0; animation:pageFade .5s ease forwards; }
   overflow:hidden;
   white-space:nowrap;
   flex:1 1 auto;
-  mask-image: linear-gradient(90deg, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
+   -webkit-mask-image: none !important;
+  mask-image: none !important;
+  overflow: visible;        /* クリップしない */
+  padding-inline: 48px;     /* 左右に余白（後でフェードを被せる） */
 }
 
 /* 各ニュースの粒 */
