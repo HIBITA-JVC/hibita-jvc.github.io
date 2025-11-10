@@ -213,6 +213,91 @@ iframe, img{
     /* ===== Page fade-in ===== */
 body{ opacity:0; animation:pageFade .5s ease forwards; }
 @keyframes pageFade{ to{ opacity:1 } }
+  /* ===== Slide News Ticker ===== */
+.news-ticker{
+  position:relative;
+  z-index: 99; /* ヒーローより前、ヘッダーの下 */
+  background:linear-gradient(90deg, rgba(15,115,255,.12), rgba(50,165,255,.12));
+  border-top:1px solid rgba(15,115,255,.15);
+  border-bottom:1px solid rgba(15,115,255,.15);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.ticker-inner{
+  max-width:1100px;
+  margin:0 auto;
+  display:flex; align-items:center;
+  gap:.8rem; padding:.55rem 1rem;
+}
+
+/* 左側のラベル */
+.ticker-inner .label{
+  flex:0 0 auto;
+  font-weight:800; font-size:.78rem; letter-spacing:.12em;
+  color:#0d336b;
+  background:#fff;
+  border:1px solid rgba(15,115,255,.25);
+  border-radius:.45rem;
+  padding:.28rem .52rem;
+  box-shadow: 0 4px 14px rgba(15,115,255,.12);
+}
+
+/* トラック（マスクで左右をフェード） */
+.ticker-track{
+  position:relative;
+  display:flex; align-items:center; gap:2.2rem;
+  list-style:none; margin:0; padding:0;
+  overflow:hidden;
+  white-space:nowrap;
+  flex:1 1 auto;
+  mask-image: linear-gradient(90deg, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
+}
+
+/* 各ニュースの粒 */
+.ticker-track li{
+  display:inline-flex; align-items:center; gap:.6rem;
+  color:#073f8e; font-weight:700; font-size:.95rem;
+}
+.ticker-track li::after{
+  content:"•"; opacity:.45;
+  transform:translateY(-1px);
+}
+
+/* マルチ行でも崩れにくい（任意で解除） */
+.ticker-track li a{
+  color:#073f8e; text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* アニメーション定義（速度はJSから--durで可変） */
+.ticker-track{
+  --dur: 40s;
+  animation: ticker-move var(--dur) linear infinite;
+  will-change: transform;
+}
+@keyframes ticker-move{
+  from{ transform: translateX(0); }
+  to  { transform: translateX(-50%); } /* 2倍化レーンの半分を流す */
+}
+
+/* ホバー/フォーカスで一時停止 */
+.news-ticker:hover .ticker-track,
+.news-ticker:focus-within .ticker-track{
+  animation-play-state: paused;
+}
+
+/* 低速端末/ユーザー設定で動きを抑制 */
+@media (prefers-reduced-motion: reduce){
+  .ticker-track{ animation: none; }
+}
+
+/* モバイルで高さ・文字サイズを少し抑える */
+@media (max-width: 520px){
+  .ticker-inner{ padding:.45rem .8rem; }
+  .ticker-inner .label{ display:none; } /* ラベルを省略（省スペース） */
+  .ticker-track li{ font-size:.9rem; }
+}
   </style>
   <!-- === Canonical & Preconnect === -->
 <link rel="canonical" href="https://hibita-jvc.github.io/">
@@ -313,6 +398,20 @@ body{ opacity:0; animation:pageFade .5s ease forwards; }
   <a href="#map">マップ</a>
     </div>
   </header>
+  <!-- ===== Slide News Ticker ===== -->
+<div class="news-ticker" aria-label="お知らせ">
+  <div class="ticker-inner">
+    <span class="label" aria-hidden="true">NEWS</span>
+    <ul class="ticker-track" id="tickerTrack">
+      <!-- ▼ この<li>の文言を好きに編集/追加してください -->
+      <li>12/1(日) 体験会 実施中！初心者歓迎</li>
+      <li>県大会ベスト4 到達！応援ありがとうございました</li>
+      <li>練習場所：比々多小・大山小 体育館（火・木・土・日）</li>
+      <li>見学申込は「見学・体験」からどうぞ</li>
+      <!-- ▲ ここを編集するだけでOK（JSが自動でループ化します） -->
+    </ul>
+  </div>
+</div>
 
   <div class="hero-shell">
     <section class="hero">
@@ -574,6 +673,43 @@ body{ opacity:0; animation:pageFade .5s ease forwards; }
   "url": "https://hibita-jvc.github.io/",
   "email": "hibita.jr@gmail.com"
 }
+</script>
+  <script>
+/*
+  ニュースティッカー：
+  - li を自動で複製して「2レーン化」→ シームレスにループ
+  - コンテンツ幅から速度を自動調整（px/sec）
+*/
+(() => {
+  const track = document.getElementById('tickerTrack');
+  if(!track) return;
+
+  // 1) コンテンツを複製して2レーンに（子要素を丸ごとコピー）
+  const clones = track.cloneNode(true);
+  // 複製の子<li>だけをtrackの末尾に移す（ULの入れ子を避ける）
+  while (clones.firstElementChild){
+    track.appendChild(clones.firstElementChild);
+  }
+
+  // 2) 幅から所要時間を計算（px/秒 = 60 を基準に）
+  const calcDuration = () => {
+    // 元の半分（=オリジナル分）の幅を測る
+    const halfWidth = Array.from(track.children)
+      .slice(0, track.children.length / 2)
+      .reduce((acc, li) => acc + li.getBoundingClientRect().width, 0);
+
+    // 最低でも 18s、最大でも 80s くらいにクランプ
+    const pxPerSec = 60; // 速度基準（好みで40〜80）
+    const dur = Math.min(80, Math.max(18, halfWidth / pxPerSec));
+    track.style.setProperty('--dur', `${dur}s`);
+  };
+
+  // 初期計算 & リサイズ時に更新
+  const ro = new ResizeObserver(calcDuration);
+  ro.observe(track);
+  window.addEventListener('load', calcDuration);
+  window.addEventListener('resize', calcDuration);
+})();
 </script>
 </body>
 </html>
