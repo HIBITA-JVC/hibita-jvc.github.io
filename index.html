@@ -300,6 +300,75 @@ body{ opacity:0; animation:pageFade .5s ease forwards; }
   .ticker-inner .label{ display:none; } /* ラベルを省略（省スペース） */
   .ticker-track li{ font-size:.9rem; }
 }
+/* ===== Instagramボタン（おしゃれ版） ===== */
+.insta-btn{
+  position:relative;
+  overflow:hidden;
+  border:none;
+  color:#fff;
+  background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
+  box-shadow:0 8px 25px rgba(221,42,123,0.35);
+  transition: all .3s ease;
+}
+
+/* 中身 */
+.insta-inner{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  font-weight:600;
+}
+
+/* アイコン */
+.insta-btn svg{
+  width:18px;
+  height:18px;
+  fill:white;
+  transition: transform .3s ease;
+}
+
+/* ホバー */
+.insta-btn:hover{
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 12px 35px rgba(221,42,123,0.45);
+}
+
+/* アイコンアニメ */
+.insta-btn:hover svg{
+  transform:rotate(-8deg) scale(1.1);
+}
+
+/* 光エフェクト */
+.insta-btn::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-120%;
+  width:60%;
+  height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-20deg);
+}
+
+.insta-btn:hover::after{
+  animation:insta-shine .8s ease;
+}
+
+@keyframes insta-shine{
+  to{ left:140%; }
+}
+
+/* ボタン間の余白調整（自然に） */
+.hero-buttons{
+  gap:.8rem;
+}
+
+/* スマホ微調整 */
+@media(max-width:500px){
+  .insta-inner span{
+    font-size:.9rem;
+  }
+}
   </style>
   <!-- === Canonical & Preconnect === -->
 <link rel="canonical" href="https://hibita-jvc.github.io/">
@@ -429,7 +498,18 @@ body{ opacity:0; animation:pageFade .5s ease forwards; }
         <div class="hero-buttons">
           <a href="#contact" class="btn-primary">見学・体験のお申し込み</a>
           <a href="#activity" class="btn-secondary">活動の様子を見る</a>
-        </div>
+          <a href="https://www.instagram.com/hibita_jvc1?igsh=ZGFqdW9lODBzc3Fm&utm_source=qr"
+     target="_blank"
+     rel="noopener"
+     class="btn-secondary insta-btn">
+    <span class="insta-inner">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A5.5 5.5 0 1 0 17.5 13 5.5 5.5 0 0 0 12 7.5zm0 2A3.5 3.5 0 1 1 8.5 13 3.5 3.5 0 0 1 12 9.5zm4.8-3.3a1.3 1.3 0 1 0 1.3 1.3 1.3 1.3 0 0 0-1.3-1.3z"/>
+      </svg>
+      <span>Instagramはこちら</span>
+    </span>
+  </a>
+         </div>
       </div>
       <div class="hero-right reveal">
         <div class="hero-image"><img src="無題502_20250923182937.png" alt="活動写真"></div>
