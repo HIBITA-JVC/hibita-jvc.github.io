@@ -369,6 +369,49 @@ body{ opacity:0; animation:pageFade .5s ease forwards; }
     font-size:.9rem;
   }
 }
+/* ===== 成績セクション ===== */
+.result-highlight{
+  margin:1rem 0;
+  padding:1rem 1.2rem;
+  border-radius:1rem;
+  font-weight:800;
+  font-size:1.1rem;
+  color:#073f8e;
+  background:linear-gradient(135deg,#e0f2ff,#ffffff);
+  box-shadow:0 10px 30px rgba(15,115,255,.15);
+  text-align:center;
+}
+
+.results-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1rem;
+  margin-top:1rem;
+}
+
+.result-card{
+  background:rgba(255,255,255,0.65);
+  border-radius:1rem;
+  padding:1rem;
+  border:1px solid rgba(15,115,255,.15);
+  box-shadow:0 8px 25px rgba(15,115,255,.08);
+  transition:.3s;
+}
+
+.result-card:hover{
+  transform:translateY(-3px);
+}
+
+.result-card h3{
+  color:#0d336b;
+  margin-bottom:.5rem;
+  font-size:1.05rem;
+}
+
+.result-card li{
+  margin:.35rem 0;
+  font-weight:600;
+}
   </style>
   <!-- === Canonical & Preconnect === -->
 <link rel="canonical" href="https://hibita-jvc.github.io/">
@@ -463,6 +506,7 @@ body{ opacity:0; animation:pageFade .5s ease forwards; }
     <div id="navOverlay" class="nav-overlay"></div>
     <div id="mobileNav" class="mobile-nav">
       <a href="#about">クラブ紹介</a>
+      <a href="#results">成績</a>
       <a href="#facebook">Facebook</a>
       <a href="#activity">活動の様子</a>
       <a href="#contact">見学・体験</a>
@@ -535,7 +579,88 @@ body{ opacity:0; animation:pageFade .5s ease forwards; }
         <li>伊勢原・秦野・平塚・厚木など、地区外の小学生もたくさん在籍しています！</li>
       </ul>
     </section>
+<div class="result-highlight reveal">
+  🏆 2025年 JA杯 神奈川県大会 優勝 / 関東大会7位
+</div>
+<section id="results" class="card reveal">
+  <h2 class="section-title">🏆 歴代成績</h2>
 
+  <div class="results-grid">
+
+    <div class="result-card">
+      <h3>34期生（2025年）</h3>
+      <ul>
+        <li>🏆 平塚地区 JA杯 優勝</li>
+        <li>🏆 JA杯 神奈川県大会 優勝</li>
+        <li>🏅 関東大会 7位（埼玉県 行田市・深谷市）</li>
+        <li>🏆 U10 地域大会 優勝</li>
+        <li>🏆 U10 神奈川県大会 優勝</li>
+      </ul>
+    </div>
+
+    <div class="result-card">
+      <h3>33期生（2024年）</h3>
+      <ul>
+        <li>🏐 神奈川県新人大会 出場</li>
+      </ul>
+    </div>
+
+    <div class="result-card">
+      <h3>32期生（2023年）</h3>
+      <ul>
+        <li>🏆 U10 神奈川県大会 優勝</li>
+      </ul>
+    </div>
+
+    <div class="result-card">
+      <h3>31期生（2022年）</h3>
+      <ul>
+        <li>🏆 モルテンカップ 優勝</li>
+        <li>🏐 神奈川県大会 出場</li>
+        <li>😢 初戦敗退（緊張のため）</li>
+      </ul>
+    </div>
+
+    <div class="result-card">
+      <h3>26期生（2017年）</h3>
+      <ul>
+        <li>🥉 神奈川県大会 第3位</li>
+      </ul>
+    </div>
+
+    <div class="result-card">
+      <h3>25期生（2016年）</h3>
+      <ul>
+        <li>🏆 全日本バレーボール小学生大会 神奈川県大会 優勝</li>
+        <li>🏅 全国大会出場（ベスト16）</li>
+        <li>🏆 JA杯 神奈川県大会 優勝</li>
+        <li>🥉 関東大会 第3位</li>
+      </ul>
+    </div>
+
+    <div class="result-card">
+      <h3>23期生（2014年）</h3>
+      <ul>
+        <li>🥉 神奈川県大会 第3位</li>
+      </ul>
+    </div>
+
+    <div class="result-card">
+      <h3>13期生（2004年）</h3>
+      <ul>
+        <li>🥉 神奈川県大会 第3位</li>
+      </ul>
+    </div>
+
+    <div class="result-card">
+      <h3>10期生（2001年）</h3>
+      <ul>
+        <li>🥉 神奈川県大会 第3位</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
     <section class="spirit reveal">
       <blockquote>
         <p>心で繋げ。<br></p>
